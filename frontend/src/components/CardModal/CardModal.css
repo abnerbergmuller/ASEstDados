@@ -1,0 +1,207 @@
+/* ===== CardModal — Sorte / Revés mystic card ===== */
+
+.card-modal__card {
+  position: relative;
+  width: 360px;
+  max-width: 90vw;
+  padding: 3px;
+  border-radius: var(--radius-xl);
+  animation: fadeInScale var(--transition-slow) ease;
+}
+
+/* Gradient border wrapper */
+.card-modal__card--positive {
+  background: linear-gradient(135deg, #2ecc71, #1abc9c, #27ae60);
+}
+
+.card-modal__card--negative {
+  background: linear-gradient(135deg, #e74c3c, #c0392b, #e74c3c);
+}
+
+.card-modal__inner {
+  position: relative;
+  background: linear-gradient(170deg, var(--bg-card) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+  border-radius: calc(var(--radius-xl) - 2px);
+  padding: 40px 32px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  overflow: hidden;
+}
+
+/* Decorative corner runes */
+.card-modal__inner::before,
+.card-modal__inner::after {
+  content: '✦';
+  position: absolute;
+  font-size: 1rem;
+  color: var(--accent-gold);
+  opacity: 0.35;
+}
+
+.card-modal__inner::before {
+  top: 14px;
+  left: 18px;
+}
+
+.card-modal__inner::after {
+  bottom: 14px;
+  right: 18px;
+}
+
+/* Background shimmer */
+.card-modal__shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(212, 168, 73, 0.06) 45%,
+    rgba(212, 168, 73, 0.12) 50%,
+    rgba(212, 168, 73, 0.06) 55%,
+    transparent 60%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* Header label */
+.card-modal__label {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 4px 16px;
+  border-radius: 20px;
+  z-index: 1;
+}
+
+.card-modal__label--positive {
+  background: rgba(46, 204, 113, 0.15);
+  color: var(--accent-green);
+  border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.card-modal__label--negative {
+  background: rgba(231, 76, 60, 0.15);
+  color: var(--accent-red);
+  border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+/* Large icon */
+.card-modal__icon {
+  font-size: 4rem;
+  line-height: 1;
+  animation: float 3s ease-in-out infinite;
+  z-index: 1;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+}
+
+/* Decorative divider */
+.card-modal__divider {
+  width: 60%;
+  height: 1px;
+  border: none;
+  z-index: 1;
+}
+
+.card-modal__divider--positive {
+  background: linear-gradient(90deg, transparent, var(--accent-green), transparent);
+}
+
+.card-modal__divider--negative {
+  background: linear-gradient(90deg, transparent, var(--accent-red), transparent);
+}
+
+/* Description text */
+.card-modal__description {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  text-align: center;
+  line-height: 1.6;
+  z-index: 1;
+  max-width: 280px;
+}
+
+/* Value display */
+.card-modal__value {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 700;
+  z-index: 1;
+  letter-spacing: 0.02em;
+}
+
+.card-modal__value--positive {
+  color: var(--accent-green);
+  text-shadow: 0 0 20px rgba(46, 204, 113, 0.4);
+}
+
+.card-modal__value--negative {
+  color: var(--accent-red);
+  text-shadow: 0 0 20px rgba(231, 76, 60, 0.4);
+}
+
+/* Close button */
+.card-modal__close-btn {
+  z-index: 1;
+  min-width: 140px;
+  padding: 12px 28px;
+  font-size: 0.95rem;
+  margin-top: 4px;
+}
+
+/* Sparkle particles */
+.card-modal__particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.card-modal__particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  animation: particleFloat 4s ease-in-out infinite;
+}
+
+.card-modal__particle--positive {
+  background: var(--accent-green);
+  box-shadow: 0 0 6px var(--accent-green);
+}
+
+.card-modal__particle--negative {
+  background: var(--accent-red);
+  box-shadow: 0 0 6px var(--accent-red);
+}
+
+.card-modal__particle:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+.card-modal__particle:nth-child(2) { top: 25%; right: 12%; animation-delay: 0.7s; }
+.card-modal__particle:nth-child(3) { bottom: 30%; left: 15%; animation-delay: 1.4s; }
+.card-modal__particle:nth-child(4) { bottom: 20%; right: 18%; animation-delay: 2.1s; }
+.card-modal__particle:nth-child(5) { top: 50%; left: 8%; animation-delay: 0.5s; }
+.card-modal__particle:nth-child(6) { top: 40%; right: 8%; animation-delay: 1.8s; }
+
+@keyframes particleFloat {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5);
+  }
+  25% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1);
+  }
+  75% {
+    opacity: 0.6;
+    transform: translateY(-25px) scale(0.8);
+  }
+}

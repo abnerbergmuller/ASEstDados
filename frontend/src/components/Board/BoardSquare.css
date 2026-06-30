@@ -1,0 +1,120 @@
+.board-square {
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(22, 33, 62, 0.8) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 8px;
+  position: relative;
+  overflow: visible;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.board-square:hover {
+  border-color: rgba(212, 168, 73, 0.3);
+  background: var(--bg-card-hover);
+}
+
+.board-square-header-bar {
+  height: 6px;
+  border-radius: 3px;
+  margin-bottom: 4px;
+}
+
+.board-square-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.board-square-name {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-primary);
+  line-height: 1.2;
+  word-wrap: normal;
+  word-break: keep-all;
+  white-space: normal;
+  max-width: 100%;
+}
+
+.board-square-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.board-square-price {
+  font-size: 0.7rem;
+  color: var(--accent-gold);
+  font-weight: 600;
+}
+
+
+/* Player tokens container */
+.board-square-players {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+  max-width: 50px;
+}
+
+.board-player-token {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  animation: float 2s ease-in-out infinite;
+}
+
+/* Dynamic colors */
+.board-player-token.p1 { background: var(--player-1); }
+.board-player-token.p2 { background: var(--player-2); }
+.board-player-token.p3 { background: var(--player-3); }
+.board-player-token.p4 { background: var(--player-4); }
+
+.board-square.active-position {
+  border-color: var(--accent-gold);
+  box-shadow: 0 0 15px rgba(212, 168, 73, 0.4);
+  background: rgba(123, 44, 191, 0.2);
+}
+
+.board-square.landed-highlight {
+  animation: pulse 1.5s infinite ease-in-out;
+  border-color: var(--accent-cyan);
+}
+
+/* Bookmark tag sticking out behind the card */
+.board-square-bookmark {
+  position: absolute;
+  top: -8px;
+  right: 12px;
+  width: 18px;
+  height: 16px;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  z-index: 1;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.4);
+  transition: all var(--transition-normal);
+}
+
+/* Active player token glow */
+@keyframes tokenGlow {
+  0%, 100% { box-shadow: 0 0 4px rgba(255, 255, 255, 0.5), 0 0 8px currentColor; }
+  50% { box-shadow: 0 0 6px rgba(255, 255, 255, 0.7), 0 0 16px currentColor; }
+}
+
+.board-player-token.active-player-token {
+  animation: float 2s ease-in-out infinite, tokenGlow 1.5s ease-in-out infinite;
+  border: 2px solid #fff;
+  transform: scale(1.15);
+}
