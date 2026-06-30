@@ -1,0 +1,248 @@
+/* ===== PlayerPanel — Left Sidebar ===== */
+
+.player-panel {
+  width: 280px;
+  min-width: 280px;
+  height: calc(100vh - 48px);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: linear-gradient(
+    180deg,
+    rgba(13, 13, 26, 0.65) 0%,
+    rgba(26, 26, 46, 0.45) 100%
+  );
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ── Panel header ────────────────────────── */
+
+.player-panel__title {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent-gold);
+  text-align: center;
+  padding-bottom: 8px;
+  margin-bottom: 2px;
+  border-bottom: 1px solid var(--border-color);
+  opacity: 0;
+  animation: slideInLeft 0.5s ease forwards;
+}
+
+/* ── Player card ─────────────────────────── */
+
+.player-card {
+  position: relative;
+  padding: 0;
+  overflow: hidden;
+  transition:
+    box-shadow var(--transition-normal),
+    opacity var(--transition-normal),
+    border-color var(--transition-normal);
+
+  /* staggered entrance — controlled via inline style */
+  opacity: 0;
+  animation: slideInLeft 0.45s ease forwards;
+}
+
+.player-card__color-bar {
+  height: 4px;
+  width: 100%;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.player-card__body {
+  padding: 12px 14px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Active player glow ──────────────────── */
+
+.player-card--active {
+  border-color: var(--accent-gold) !important;
+  animation:
+    slideInLeft 0.45s ease forwards,
+    glowPulse 2.2s ease-in-out infinite;
+}
+
+/* ── Bankrupt dim ────────────────────────── */
+
+.player-card--falido {
+  opacity: 0.5;
+}
+
+.player-card--falido .player-card__name {
+  text-decoration: line-through;
+  text-decoration-color: var(--accent-red);
+}
+
+/* ── Header row: name + status ───────────── */
+
+.player-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.player-card__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Status badge ────────────────────────── */
+
+.player-card__status {
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.player-card__status--ativo {
+  background: rgba(46, 204, 113, 0.15);
+  color: var(--accent-green);
+  border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.player-card__status--falido {
+  background: rgba(231, 76, 60, 0.15);
+  color: var(--accent-red);
+  border: 1px solid rgba(231, 76, 60, 0.3);
+}
+
+/* ── Character row ───────────────────────── */
+
+.player-card__character {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.player-card__char-emoji {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.player-card__char-name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent-gold-dim);
+}
+
+.player-card__char-desc {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  line-height: 1.35;
+  font-style: italic;
+}
+
+/* ── Balance ─────────────────────────────── */
+
+.player-card__balance {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+.player-card__balance-label {
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.player-card__balance-value {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--accent-green);
+  text-shadow: 0 0 8px rgba(46, 204, 113, 0.25);
+}
+
+.player-card--falido .player-card__balance-value {
+  color: var(--accent-red);
+  text-shadow: none;
+}
+
+/* ── Properties list ─────────────────────── */
+
+.player-card__properties {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.player-card__prop-header {
+  font-size: 0.66rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 1px;
+}
+
+.player-card__prop-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.player-card__prop-tag {
+  font-size: 0.62rem;
+  padding: 2px 7px;
+  background: rgba(59, 130, 246, 0.12);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 999px;
+  color: var(--accent-cyan);
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.player-card__prop-empty {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ── Divider ─────────────────────────────── */
+
+.player-card__divider {
+  border: none;
+  height: 1px;
+  background: var(--glass-border);
+  margin: 2px 0;
+}
+
+/* ── Bankruptcy button ───────────────────── */
+
+.player-card__bankrupt-btn {
+  width: 100%;
+  padding: 5px 10px;
+  font-size: 0.68rem;
+  border-radius: var(--radius-sm);
+  margin-top: 8px;
+}

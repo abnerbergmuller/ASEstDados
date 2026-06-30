@@ -35,7 +35,13 @@ public class GameController {
 
     @GetMapping("/imoveis")
     public List<Imovel> getImoveis() {
-        return setupService.getImoveisFantasy();
+        List<Imovel> imoveis = new java.util.ArrayList<>();
+        for (com.game.domain.model.CasaTabuleiro casa : gameFacade.getTabuleiroCasas()) {
+            if (casa.getTipo() == com.game.domain.model.CasaTabuleiro.TipoCasa.IMOVEL && casa.getImovel() != null) {
+                imoveis.add(casa.getImovel());
+            }
+        }
+        return imoveis;
     }
 
     @PostMapping("/jogar/{nomeJogador}")
@@ -59,9 +65,24 @@ public class GameController {
         return gameFacade.getLeilaoService().receberLance(j, request.getValor());
     }
 
+    @PostMapping("/pular-compra/{nomeJogador}")
+    public void pularCompra(@PathVariable("nomeJogador") String nomeJogador) {
+        gameFacade.pularCompra(nomeJogador);
+    }
+
     @PostMapping("/falencia/{nomeJogador}")
     public void declararFalencia(@PathVariable("nomeJogador") String nomeJogador) {
         gameFacade.declararFalencia(nomeJogador);
+    }
+
+    @GetMapping("/estado")
+    public EstadoJogoDTO getEstado() {
+        return gameFacade.obterEstadoJogo();
+    }
+
+    @PostMapping("/leilao/encerrar")
+    public void encerrarLeilao() {
+        gameFacade.getLeilaoService().encerrarLeilao();
     }
 
     @GetMapping("/historico")

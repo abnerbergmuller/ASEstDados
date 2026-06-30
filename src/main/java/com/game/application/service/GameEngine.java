@@ -177,8 +177,10 @@ public class GameEngine {
             // "Calcula aluguel (reduz 10% se o pagador for NEGOCIANTE), debita de um, credita no outro"
             // Se o pagador tem 10% de desconto, o dono recebe 10% a menos.
             double valorPago = aluguel;
+            boolean temDesconto = false;
             if (jogador.getPersonagem() == Personagem.NEGOCIANTE) {
                 valorPago *= 0.90;
+                temDesconto = true;
             }
             imovel.getDono().receber(valorPago);
             imovel.registrarVisita();
@@ -188,7 +190,11 @@ public class GameEngine {
                 imovelMaiorAluguel = imovel;
             }
             
-            resultado.setMensagem(resultado.getMensagem() + " Pagou " + valorPago + " de aluguel para " + imovel.getDono().getNome());
+            String msgAluguel = " Pagou " + valorPago + " de aluguel para " + imovel.getDono().getNome();
+            if (temDesconto) {
+                msgAluguel += " (com 10% de desconto de Negociante)";
+            }
+            resultado.setMensagem(resultado.getMensagem() + msgAluguel);
         } else {
             resultado.setMensagem(resultado.getMensagem() + " Você já é o dono deste imóvel.");
         }

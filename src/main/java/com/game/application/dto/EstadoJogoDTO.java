@@ -14,18 +14,21 @@ public class EstadoJogoDTO {
         private double saldo;
         private String posicaoCasaNome;
         private String status;
+        private int posicaoIndex;
 
-        public JogadorResumo(String nome, double saldo, String posicaoCasaNome, String status) {
+        public JogadorResumo(String nome, double saldo, String posicaoCasaNome, String status, int posicaoIndex) {
             this.nome = nome;
             this.saldo = saldo;
             this.posicaoCasaNome = posicaoCasaNome;
             this.status = status;
+            this.posicaoIndex = posicaoIndex;
         }
 
         public String getNome() { return nome; }
         public double getSaldo() { return saldo; }
         public String getPosicaoCasaNome() { return posicaoCasaNome; }
         public String getStatus() { return status; }
+        public int getPosicaoIndex() { return posicaoIndex; }
     }
 
     public String getProximoJogadorNome() {
