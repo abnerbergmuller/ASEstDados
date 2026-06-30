@@ -1,5 +1,6 @@
 package com.game.domain.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Representa uma propriedade imobiliária no tabuleiro.
@@ -62,6 +63,11 @@ public class Imovel {
     @JsonBackReference
     public Jogador getDono() { return dono; }
     public void setDono(Jogador dono) { this.dono = dono; }
+
+    @JsonProperty("donoNome")
+    public String getDonoNome() {
+        return dono != null ? dono.getNome() : null;
+    }
 
     public double getMultiplicadorDemanda() { return multiplicadorDemanda; }
     public void setMultiplicadorDemanda(double multiplicadorDemanda) { this.multiplicadorDemanda = multiplicadorDemanda; }

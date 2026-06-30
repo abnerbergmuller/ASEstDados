@@ -76,6 +76,7 @@ public class GameFacade {
             if (imovel.getDono() == null && atual.getSaldo() >= imovel.getPrecoCompra()) {
                 atual.pagar(imovel.getPrecoCompra());
                 atual.adicionarImovel(imovel);
+                engine.getHistorico().enqueue(atual.getNome() + " comprou Imóvel: " + imovel.getNome() + " por " + imovel.getPrecoCompra());
             }
         }
         avancarTurno();
@@ -85,6 +86,11 @@ public class GameFacade {
      * O jogador atual decide não comprar o imóvel. O turno avança.
      */
     public void pularCompra(String nomeJogador) {
+        Jogador atual = buscarJogador(nomeJogador);
+        CasaTabuleiro casa = atual.getPosicaoAtual().getData();
+        if (casa.getTipo() == CasaTabuleiro.TipoCasa.IMOVEL) {
+            engine.getHistorico().enqueue(atual.getNome() + " decidiu não comprar o Imóvel: " + casa.getImovel().getNome());
+        }
         avancarTurno();
     }
 
@@ -112,7 +118,18 @@ public class GameFacade {
             if (j.getPosicaoAtual().getData().getTipo() == CasaTabuleiro.TipoCasa.IMOVEL) {
                 casaNome = j.getPosicaoAtual().getData().getImovel().getNome();
             }
-            resumos.add(new EstadoJogoDTO.JogadorResumo(j.getNome(), j.getSaldo(), casaNome, j.getStatus().toString()));
+            
+            // Calculate the board square index
+            int squareIndex = 0;
+            com.game.infrastructure.datastructures.DoubleNode<CasaTabuleiro> startNode = engine.getCasaInicio();
+            com.game.infrastructure.datastructures.DoubleNode<CasaTabuleiro> currNode = startNode;
+            while (currNode != j.getPosicaoAtual() && currNode != null) {
+                squareIndex++;
+                currNode = currNode.getNext();
+                if (currNode == startNode) break;
+            }
+            
+            resumos.add(new EstadoJogoDTO.JogadorResumo(j.getNome(), j.getSaldo(), casaNome, j.getStatus().toString(), squareIndex));
         }
         estado.setJogadores(resumos);
         return estado;
