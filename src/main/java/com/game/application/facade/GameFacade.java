@@ -196,6 +196,14 @@ public class GameFacade {
         return casas;
     }
 
+    public DoubleNode<CasaTabuleiro> getTabuleiroCasasNode(int index) {
+        DoubleNode<CasaTabuleiro> atual = engine.getCasaInicio();
+        for (int i = 0; i < index; i++) {
+            atual = atual.getNext();
+        }
+        return atual;
+    }
+
     public void declararFalencia(String nomeJogador) {
         Jogador j = buscarJogador(nomeJogador);
         j.irA(JogadorStatus.FALIDO);
