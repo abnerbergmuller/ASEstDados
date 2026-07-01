@@ -30,6 +30,24 @@
   overflow: hidden;
 }
 
+.board-center::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url('/bg-mythology.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.board-center > * {
+  position: relative;
+  z-index: 1;
+}
+
 .board-center-glow {
   position: absolute;
   inset: 0;
